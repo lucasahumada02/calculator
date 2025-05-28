@@ -26,6 +26,10 @@ SPDX-License-Identifier: MIT
 
 /* === Headers files inclusions ==================================================================================== */
 
+#include <stdio.h>
+#include <stdint.h>
+#include <stdbool.h>
+
 /* === Header for C++ compatibility ================================================================================ */
 
 #ifdef __cplusplus
@@ -36,9 +40,60 @@ extern "C" {
 
 /* === Public data type declarations =============================================================================== */
 
+/**Tipo de datos para el objeto calculadora */
+typedef struct calculator_s * calculator_t;
+
+/**Tipo de datos para las funciones de operación */
+typedef int (*operation_func_t)(int , int);
+
 /* === Public variable declarations ================================================================================ */
 
 /* === Public function declarations ================================================================================ */
+
+/**
+ * @brief Crea una nueva calculadora
+ * 
+ * @return Puntero a la calculadora creada
+ */
+calculator_t CalculatorCreate(void);
+
+/**
+ * @brief 
+ * 
+ * @param calculator Puntero a la calculadora
+ * @param operator Operador asociado a la función
+ * @param funtion Funcion que implementa la operación
+ * @return true si la operacion fue agregada
+ * @return false en caso contrario
+ */
+bool CalculatorAddOperation(calculator_t calculator, char operator,operation_func_t funtion);
+
+/**
+ * @brief Realiza una operacion a partir de una cadena de caracteres
+ * 
+ * @param calculator Puntero a calculadora
+ * @param expression Cadena con la expresion a calcular
+ * @return Resultado de la operacion
+ */
+int CalculatorCalculate(calculator_t calculator, const char * expression);
+
+/**
+ * @brief Operación de suma para agregar a la calculadora
+ * 
+ * @param a Primer operando
+ * @param b Segundo operando
+ * @return Resultado de la operacion
+ */
+int OperationAdd(int a, int b);
+
+/**
+ * @brief Operación de resta para agregar a la calculadora
+ * 
+ * @param a Primer operando
+ * @param b Segundo operando
+ * @return Resultado de la operación
+ */
+int OperationSubtract(int a, int b);
 
 /* === End of conditional blocks =================================================================================== */
 

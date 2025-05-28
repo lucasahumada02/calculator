@@ -24,19 +24,125 @@ SPDX-License-Identifier: MIT
 /* === Headers files inclusions ==================================================================================== */
 
 #include "calculator.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 /* === Macros definitions ========================================================================================== */
 
+#ifndef OPERATIONS_MAX
+#define OPERATIONS_MAX 16
+#endif
+
 /* === Private data type declarations ============================================================================== */
+
+/** @brief Estrucutura para una operación de la calculadora */
+typedef struct operation_s * operation_t;
+
+struct operation_s
+{
+    char operator;
+    operation_func_t function;
+    operation_t next;
+};
+
+/** @brief  Estructura del objeto calculadora */
+struct calculator_s
+{
+    operation_t operations;
+};
+
 
 /* === Private function declarations =============================================================================== */
 
+/**
+ * @brief Busca una operación en la calculadora por su operadpr
+ * 
+ * @param calculator Puntero a la calculadora
+ * @param operator Operador a buscar
+ * @return Puntero a la operación encontrada o NULL si no existe
+ */
+static operation_t FindOperation(calculator_t calculator, char operator);
 /* === Private variable definitions ================================================================================ */
 
 /* === Public variable definitions ================================================================================= */
 
 /* === Private function definitions ================================================================================ */
 
+static operation_t FindOperation(calculator_t calculator, char operator){
+    operation_t current = calculator ->operations;
+    while (current !=NULL)
+    {
+        if (current->operator== operator)
+        {
+            return current;
+        }
+        current = current->next;
+    }
+    return NULL;
+}
 /* === Public function implementation ============================================================================== */
 
+calculator_t CalculatorCreate(void){
+    calculator_t self = malloc(sizeof(struct calculator_s));
+    if (self)
+    {
+        self->operations = NULL;
+    }
+    return self;
+}
+
+bool CalculatorAddOperation(calculator_t calculator, char operator,operation_func_t funtion){
+    if (!calculator || !funtion || FindOperation(calculator,operator))
+    {
+        return false;
+    }
+    operation_t operation = malloc(sizeof(struct operation_s));
+    if (operation)
+    {
+        operation->operator=operator;
+        operation->function=funtion;
+        operation->next= calculator->operations;
+        calculator->operations = operation;
+        return true;
+    }
+    return false;
+}
+
+int CalculatorCalculate(calculator_t calculator, const char * expression){
+    int a=0,b=0;
+    char operator=0;
+    int result=0;
+
+    if (!calculator || !expression)
+    {
+        return 0;
+    }
+    for (int i = 0; i < (int)strlen(expression); i++)
+    {
+        if ((expression[i] <'0') || (expression[i]>'0'))
+        {
+            operator=expression[i];
+            a=atoi(expression);
+            b=atoi(expression+i+1);
+            break;
+
+        }
+    }
+    
+    operation_t operation = FindOperation(calculator,operator);
+    if (operation)
+    {
+        result = operation->function(a,b);
+    }
+    return result;
+}
+
+int OperationAdd(int a, int b){
+    return a + b;
+}
+
+int OperationSubtract(int a, int b){
+    return a - b;
+}
 /* === End of documentation ======================================================================================== */

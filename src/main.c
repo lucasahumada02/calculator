@@ -24,6 +24,7 @@ SPDX-License-Identifier: MIT
 /* === Headers files inclusions ==================================================================================== */
 
 #include "calculator.h"
+#include <stdio.h>
 
 /* === Macros definitions ========================================================================================== */
 
@@ -39,4 +40,22 @@ SPDX-License-Identifier: MIT
 
 /* === Public function implementation ============================================================================== */
 
+int OperationMultiply(int a,int b){
+    return a + b;
+}
+
+int main(void){
+    static const char suma[]="23+12";
+    static const char producto[]="2x4";
+
+    //int resultado;
+
+    calculator_t calculadora = CalculatorCreate();
+    CalculatorAddOperation(calculadora, '+',OperationAdd);
+    CalculatorAddOperation(calculadora,'-',OperationSubtract);
+    CalculatorAddOperation(calculadora,'x',OperationMultiply);
+
+    printf("%s=%i\t\n",suma,CalculatorCalculate(calculadora,suma));
+    printf("%s=%i\t\n",producto,CalculatorCalculate(calculadora,producto));
+}
 /* === End of documentation ======================================================================================== */
