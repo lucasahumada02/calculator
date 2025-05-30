@@ -45,8 +45,8 @@ int OperationMultiply(int a,int b){
 }
 
 int main(void){
-    static const char suma[]="23+12";
-    static const char producto[]="2x4";
+    static const char suma[]="23 + 12";
+    static const char producto[]="2 x 4";
 
     //int resultado;
 
@@ -55,7 +55,7 @@ int main(void){
     CalculatorAddOperation(calculadora,'-',OperationSubtract);
     CalculatorAddOperation(calculadora,'x',OperationMultiply);
 
-    printf("%s=%i\t\n",suma,CalculatorCalculate(calculadora,suma));
-    printf("%s=%i\t\n",producto,CalculatorCalculate(calculadora,producto));
+    printf("%s = %i\t\n",suma,CalculatorCalculate(calculadora,suma));
+    printf("%s = %i\t\n",producto,CalculatorCalculate(calculadora,producto));
 }
 /* === End of documentation ======================================================================================== */
