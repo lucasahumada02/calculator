@@ -7,7 +7,7 @@ OBJ_DIR = $(BUILD_DIR)/obj
 BIN_DIR = $(BUILD_DIR)/bin
 DOC_DIR = $(BUILD_DIR)/doc
 
-PROGRAM = $(BIN_DIR)/lab2
+PROGRAM = $(BIN_DIR)/lab5
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -std=c99 -I$(INC_DIR)
 
