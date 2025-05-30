@@ -92,16 +92,19 @@ calculator_t CalculatorCreate(void){
     return self;
 }
 
-bool CalculatorAddOperation(calculator_t calculator, char operator,operation_func_t funtion){
-    if (!calculator || !funtion || FindOperation(calculator,operator))
+bool CalculatorAddOperation(calculator_t calculator, char operator,operation_func_t function){
+    if (!calculator || !function || FindOperation(calculator,operator))
     {
         return false;
     }
+     if (FindOperation(calculator, operator)) {
+        return false;
+    }
     operation_t operation = malloc(sizeof(struct operation_s));
-    if (operation)
+    if (operation != NULL)
     {
         operation->operator=operator;
-        operation->function=funtion;
+        operation->function=function;
         operation->next= calculator->operations;
         calculator->operations = operation;
         return true;
@@ -120,7 +123,7 @@ int CalculatorCalculate(calculator_t calculator, const char * expression){
     }
     for (int i = 0; i < (int)strlen(expression); i++)
     {
-        if ((expression[i] <'0') || (expression[i]>'0'))
+        if (expression[i] <'0' || expression[i]>'9')
         {
             operator=expression[i];
             a=atoi(expression);
@@ -131,11 +134,13 @@ int CalculatorCalculate(calculator_t calculator, const char * expression){
     }
     
     operation_t operation = FindOperation(calculator,operator);
-    if (operation)
-    {
-        result = operation->function(a,b);
+    if (!operation) {
+        return 0;
     }
+
+    result = operation->function(a, b);
     return result;
+
 }
 
 int OperationAdd(int a, int b){
@@ -144,5 +149,13 @@ int OperationAdd(int a, int b){
 
 int OperationSubtract(int a, int b){
     return a - b;
+}
+
+int OperationMultiply(int a,int b){
+    return a * b;
+}
+
+int OperationDivision(int a,int b){
+    return a / b;
 }
 /* === End of documentation ======================================================================================== */

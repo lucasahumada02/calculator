@@ -66,7 +66,7 @@ calculator_t CalculatorCreate(void);
  * @return true si la operacion fue agregada
  * @return false en caso contrario
  */
-bool CalculatorAddOperation(calculator_t calculator, char operator,operation_func_t funtion);
+bool CalculatorAddOperation(calculator_t calculator, char operator,operation_func_t function);
 
 /**
  * @brief Realiza una operacion a partir de una cadena de caracteres
@@ -94,6 +94,24 @@ int OperationAdd(int a, int b);
  * @return Resultado de la operación
  */
 int OperationSubtract(int a, int b);
+
+/**
+ * @brief Operación de multiplicacion para agregar a la calculadora
+ * 
+ * @param a Primer operando
+ * @param b Segundo operando
+ * @return Resultado de la operacion
+ */
+int OperationMultiply(int a,int b);
+
+/**
+ * @brief Operacion de division para agregar a la calculadora
+ * 
+ * @param a Primer operando
+ * @param b Segundo operando
+ * @return Resultado de la operación
+ */
+int OperationDivision(int a,int b);
 
 /* === End of conditional blocks =================================================================================== */
 

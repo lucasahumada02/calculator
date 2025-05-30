@@ -23,8 +23,9 @@ SPDX-License-Identifier: MIT
 
 /* === Headers files inclusions ==================================================================================== */
 
-#include "calculator.h"
 #include <stdio.h>
+
+#include "calculator.h"
 
 /* === Macros definitions ========================================================================================== */
 
@@ -40,22 +41,22 @@ SPDX-License-Identifier: MIT
 
 /* === Public function implementation ============================================================================== */
 
-int OperationMultiply(int a,int b){
-    return a + b;
-}
+int main(void) {
+    static const char suma[] = "23+12";
+    static const char producto[] = "2*4";
+    static const char resta[] = "20-10";
+    static const char division[] = "40/2";
 
-int main(void){
-    static const char suma[]="23 + 12";
-    static const char producto[]="2 x 4";
-
-    //int resultado;
 
     calculator_t calculadora = CalculatorCreate();
-    CalculatorAddOperation(calculadora, '+',OperationAdd);
-    CalculatorAddOperation(calculadora,'-',OperationSubtract);
-    CalculatorAddOperation(calculadora,'x',OperationMultiply);
+    CalculatorAddOperation(calculadora, '+', OperationAdd);
+    CalculatorAddOperation(calculadora, '-', OperationSubtract);
+    CalculatorAddOperation(calculadora, '*', OperationMultiply);
+    CalculatorAddOperation(calculadora, '/', OperationDivision);
 
-    printf("%s = %i\t\n",suma,CalculatorCalculate(calculadora,suma));
-    printf("%s = %i\t\n",producto,CalculatorCalculate(calculadora,producto));
+    printf("%s = %i\t\n", suma, CalculatorCalculate(calculadora, suma));
+    printf("%s = %i\t\n", producto, CalculatorCalculate(calculadora, producto));
+    printf("%s = %i\t\n", resta, CalculatorCalculate(calculadora, resta));
+    printf("%s = %i\t\n", division, CalculatorCalculate(calculadora, division));
 }
 /* === End of documentation ======================================================================================== */
